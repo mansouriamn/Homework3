@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h3>This is the Hangman game. Please guess the letters below. You can guess max 6 times.</h3>
+    <p>Input a letter: <input id="Input1" type="text" name="user">
+    <button id="BTN" onclick="HangmanCalculator()">Submit</button></p>
+    <label for="Correct_Answer">Correct Answer:</label>
+    <label id="Ranswer" for="Correct_Answer">Count</label><br>
+    <label for="Wrong_Answer">Wrong Answer:</label>
+    <label id="Wanswer" for="Wrong_Answer">Count</label><br>
+    <p><canvas id="myCanvas" width="450" height="100" style="border:1px solid #d3d3d3;"></p>
+    <p><canvas id="Hangem" width="450" height="300" style="border:1px solid #d3d3d3;"></p>
+            
+    <script>
+        
+        
+        var count=0;
+        var correct = 0;
+        var wrong = 0;
+        var word = randFruit();
+        var answer = [" "," "," "," "," "," "," "," "," "," "];
+        var compare = 0;
+        var textcount = 0;
+        console.log(word);
+        
+        //Draw underlines for expected word
+        for(var i=0;i<word.length;i++){
+            drawline(20+count,75,40+count,75);
+            count+=40;
+        }
+        //Use all functions and entries to run the game
+        function HangmanCalculator()
+        {
+            compare = correct;
+            var inputvalue = document.getElementById("Input1").value;
+            for(var i=0;i<word.length;i++)
+            {
+                if(inputvalue == word[i])
+                {
+                    correct++;
+                    answer[i]= word[i];
+                    document.getElementById('Ranswer').innerHTML = correct;
+                    document.getElementById("Input1").value = "";
+                }
+                //Placing letters in right position
+                switch(answer[i])
+                {
+                   case answer[0]:
+                   Text(answer[0],20)
+                   break;
+
+                   case answer[1]:
+                   Text(answer[1],60)
+                   break;
+
+                   case answer[2]:
+                   Text(answer[2],100)
+                   break;
+
+                   case answer[3]:
+                   Text(answer[3],140)
+                   break;
+
+                   case answer[4]:
+                   Text(answer[4],180)
+                   break;
+
+                   case answer[5]:
+                   Text(answer[5],220)
+                   break;
+
+                   case answer[6]:
+                   Text(answer[6],260)
+                   break;
+
+                   case answer[7]:
+                   Text(answer[7],300)
+                   break;
+
+                   case answer[8]:
+                   Text(answer[8],340)
+                   break;
+
+                   case answer[9]:
+                   Text(answer[9],380)
+                   break;
+
+                   case answer[10]:
+                   Text(answer[10],420)
+                   break;
+                }
+            }
+        
+
+            //Perform the following if letter is incorrect
+                if(compare === correct)
+                {
+                    wrong++;
+                    if (wrong === 6)
+                    {
+                        console.log('game over');
+                    }
+                    document.getElementById('Wanswer').innerHTML = wrong;
+                    switch(wrong)
+                    {
+                        case 1:
+                        hanghead();
+                        document.getElementById('Input1').value = "";
+                        break;
+                        case 2:
+                        hangbody();
+                        document.getElementById('Input1').value = "";
+                        break;
+                        case 3:
+                        rightHand();
+                        document.getElementById('Input1').value = "";
+                        break;
+                        case 4:
+                        leftHand();
+                        document.getElementById('Input1').value = "";
+                        break;
+                        case 5:
+                        rightFoot();
+                        document.getElementById('Input1').value = "";
+                        break;
+                        case 6:
+                        leftFoot();
+                        document.getElementById('Input1').value = "";
+                        break;
+                        
+                    }
+                }   
+        } 
+        
+        
+        
+        
+        function randnum(a){
+          var num =Math.floor((Math.random() * a-1) +1);
+          return num;
+        }
+        function randFruit(){
+            var fruitIndex = ["apple", "orange", "banana", "cherry","kiwi","lemon","grape","strawberry","avocado","coconut"];
+            var r = fruitIndex[randnum(10)];
+            return r;
+        }
+        function drawline(w,x,y,z){
+        var c = document.getElementById("myCanvas");
+        var ctx = c.getContext("2d");
+        ctx.beginPath();
+        ctx.moveTo(w, x);
+        ctx.lineTo(y, z);
+        ctx.stroke();
+        }
+        function hanghead(){
+        var c = document.getElementById("Hangem");
+        var ctx = c.getContext("2d");  
+        ctx.beginPath();
+        ctx.arc(210,50,40,0,2*Math.PI);
+        ctx.stroke();
+        }
+        
+        function hangbody(){
+        var c = document.getElementById("Hangem");
+        var ctx = c.getContext("2d");
+        ctx.beginPath();
+        ctx.moveTo(210, 90);
+        ctx.lineTo(210, 200);
+        ctx.stroke();
+        }
+        
+        function rightHand(){
+        var c = document.getElementById("Hangem");
+        var ctx = c.getContext("2d");
+        ctx.beginPath();
+        ctx.moveTo(210, 150);
+        ctx.lineTo(300, 100);
+        ctx.stroke();
+        }
+        
+        function leftHand(){
+        var c = document.getElementById("Hangem");
+        var ctx = c.getContext("2d");
+        ctx.beginPath();
+        ctx.moveTo(210, 150);
+        ctx.lineTo(120,100);
+        ctx.stroke();
+        }
+        
+        function rightFoot(){
+        var c = document.getElementById("Hangem");
+        var ctx = c.getContext("2d");
+        ctx.beginPath();
+        ctx.moveTo(210, 200);
+        ctx.lineTo(250,250);
+        ctx.stroke();
+        }
+        
+        function leftFoot(){
+        var c = document.getElementById("Hangem");
+        var ctx = c.getContext("2d");
+        ctx.beginPath();
+        ctx.moveTo(210, 200);
+        ctx.lineTo(170,250);
+        ctx.stroke();
+        }
+        
+        function Text(a,b){
+        var canvas = document.getElementById("myCanvas");
+        var ctx = canvas.getContext("2d");
+        ctx.font = "30px Arial";
+        ctx.fillText(a,b,50);
+        }
+Text("a");
+    
+    </script>
+</body>
+</html>
